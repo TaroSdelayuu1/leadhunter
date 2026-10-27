@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111019">
+<title>LeadHunter — Esoteric Leads</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0c12;--panel:#17151f;--panel2:#201d2b;--line:#302b3c;--text:#f5f1fb;--muted:#a7a0b7;--gold:#e5bd70;--gold2:#b88b42;--green:#8bd6ad;--red:#ff9e9e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -10%,#30233e 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1180px;margin:auto;padding:18px 14px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 22px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#f0d99e,#a97935);color:#1a1420;font-size:23px;box-shadow:0 8px 25px #bd8a3a22}.brand h1{font-size:21px;letter-spacing:.3px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.status{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted);font-size:11px;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:#777184}
+.hero{border:1px solid #4c3d51;background:linear-gradient(120deg,#201a2b,#17151f 70%);border-radius:22px;padding:20px;margin-bottom:15px;position:relative;overflow:hidden}.hero:after{content:"✦";position:absolute;right:18px;top:4px;color:#e5bd701b;font-size:100px;pointer-events:none}.eyebrow{font-size:11px;letter-spacing:1.8px;color:var(--gold);text-transform:uppercase;font-weight:750}.hero h2{font-size:clamp(23px,5vw,34px);line-height:1.12;margin:8px 0}.hero p{max-width:620px;color:var(--muted);margin:0;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;min-width:0}.stat .num{font-size:25px;font-weight:750;letter-spacing:-.5px}.stat .label{font-size:11px;color:var(--muted);margin-top:3px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:14px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.panel h3{font-size:15px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:3px}.controls{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px}.field label{display:block;font-size:11px;color:var(--muted);margin:0 0 6px}.field input,.field select{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line);background:#100f16;color:var(--text);padding:11px 12px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold2);box-shadow:0 0 0 3px #bd8a3a1c}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn{border:1px solid var(--line);border-radius:12px;min-height:42px;padding:10px 13px;background:var(--panel2);color:var(--text);font-weight:650;font-size:12px}.btn.primary{background:linear-gradient(135deg,#f0d99e,#c4974d);border-color:transparent;color:#211827}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted);font-weight:650;background:#121119}td{color:#ded8e8}tbody tr:last-child td{border-bottom:0}.empty{padding:34px 16px;text-align:center;color:var(--muted)}.empty .symbol{font-size:30px;color:var(--gold);margin-bottom:8px}.empty strong{display:block;color:var(--text);font-size:14px;margin-bottom:4px}.empty p{margin:0;font-size:12px}
+.note{border:1px dashed #50445e;border-radius:13px;padding:12px;color:var(--muted);font-size:12px}.note strong{color:var(--text)}.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.api-grid .wide{grid-column:1/-1}.api-grid input{font-size:12px}.api-help{font-size:11px;color:var(--muted);margin:10px 0 0}.api-help code{color:var(--gold);overflow-wrap:anywhere}.footer{color:#716a80;font-size:11px;text-align:center;padding:12px 0}.toast{position:fixed;bottom:calc(15px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:calc(100% - 28px);background:#2a2434;border:1px solid #50445e;color:var(--text);padding:12px 15px;border-radius:12px;box-shadow:0 12px 35px #0007;font-size:12px;display:none;z-index:5}
+@media(min-width:760px){.app{padding:28px 24px 50px}.hero{padding:28px}.panel{padding:20px}.stats{gap:14px}.stat{padding:18px}.stat .num{font-size:30px}}
+@media(max-width:420px){.app{padding:13px 10px 30px}.brand h1{font-size:18px}.logo{width:39px;height:39px}.status{font-size:10px;padding:6px 8px}.hero{padding:17px}.stats{gap:7px}.stat{padding:11px 9px;border-radius:13px}.stat .num{font-size:22px}.stat .label{font-size:10px}.controls{grid-template-columns:1fr}.panel{padding:12px}.actions .btn{flex:1}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="logo">✦</div><div><h1>LeadHunter</h1><p>ESOTERIC LEADS · RU & CIS</p></div></div>
+    <div class="status"><span class="dot" id="statusDot"></span><span id="connectionStatus">Нет подключения</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Панель поиска клиентов</div>
+    <h2>Находи. Проверяй. Связывайся.</h2>
+    <p>Единая база рекламирующихся тарологов, гадалок и экстрасенсов. Сейчас база пустая — реальные записи появятся после подключения серверного API.</p>
+  </section>
+
+  <section class="stats" aria-label="Статистика базы">
+    <div class="stat"><div class="num" id="totalCount">0</div><div class="label">Всего лидов</div></div>
+    <div class="stat"><div class="num" id="telegramCount">0</div><div class="label">С Telegram</div></div>
+    <div class="stat"><div class="num" id="newCount">0</div><div class="label">Новые за сутки</div></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div><h3>Поиск и фильтры</h3><div class="sub">Ищи по имени, городу, сайту или Telegram</div></div></div>
+    <div class="controls">
+      <div class="field"><label for="searchInput">Поисковый запрос</label><input id="searchInput" type="search" placeholder="Например, таролог, Алматы, @username" autocomplete="off"></div>
+      <div class="field"><label for="nicheFilter">Ниша</label><select id="nicheFilter"><option value="">Все ниши</option><option value="Таролог">Тарологи</option><option value="Гадалка">Гадалки</option><option value="Экстрасенс">Экстрасенсы</option><option value="Ясновидящая">Ясновидящие</option><option value="Нумеролог">Нумерологи</option><option value="Хиромант">Хироманты</option></select></div>
+      <div class="field"><label for="countryFilter">География</label><select id="countryFilter"><option value="">Россия и СНГ</option><option>Россия</option><option>Узбекистан</option><option>Казахстан</option><option>Кыргызстан</option><option>Таджикистан</option><option>Беларусь</option><option>Армения</option><option>Азербайджан</option><option>Молдова</option><option>Туркменистан</option></select></div>
+      <div class="field"><label for="statusFilter">Статус рекламы</label><select id="statusFilter"><option value="">Все статусы</option><option>Подтверждена</option><option>Требует проверки</option><option>Не подтверждена</option><option>Не найдена повторно</option></select></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="refreshBtn">↻ Обновить базу</button>
+      <button class="btn" id="exportBtn">↓ Экспорт CSV</button>
+      <button class="btn" id="resetBtn">Сбросить фильтры</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div><h3>База лидов</h3><div class="sub" id="resultSummary">0 записей</div></div><span class="status">По дате: новые сначала</span></div>
+    <div class="table-wrap">
+      <table aria-label="Таблица лидов">
+        <thead><tr><th>Специалист</th><th>Ниша</th><th>Регион</th><th>Telegram</th><th>Сайт</th><th>Реклама</th><th>Обнаружен</th></tr></thead>
+        <tbody id="leadsBody"><tr><td colspan="7"><div class="empty"><div class="symbol">⌕</div><strong>Пока нет лидов</strong><p>Здесь появятся реальные записи после подключения источников и запуска сканирования.</p></div></td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div><h3>Подключение к серверу</h3><div class="sub">Настройка REST API — можно оставить пустой до развёртывания сервера</div></div></div>
+    <div class="api-grid">
+      <div class="field wide"><label for="apiUrl">URL API базы</label><input id="apiUrl" type="url" placeholder="https://ваш-сервер.example/api/leads"></div>
+      <div class="field wide"><label for="apiKey">Токен доступа (необязательно)</label><input id="apiKey" type="password" placeholder="Не вставляй секретный ключ в публичную HTML-страницу" autocomplete="off"></div>
+    </div>
+    <div class="actions"><button class="btn" id="saveConfigBtn">Сохранить настройки на этом устройстве</button><button class="btn" id="testApiBtn">Проверить API</button></div>
+    <p class="api-help">Ожидаемый ответ <code>GET /api/leads</code>: JSON-массив записей или объект <code>{"items":[...]}</code>. Кнопка обновления вызывает только указанный API. Сам сканер рекламы пока не подключён.</p>
+  </section>
+
+  <div class="note"><strong>Важно о безопасности.</strong> Не размещай секреты рекламных API в HTML-файле. Для реальной базы сервер должен проверять доступ, хранить секреты в переменных окружения и отдавать данные по HTTPS.</div>
+  <div class="footer">LeadHunter · мобильная панель · версия 0.1 · пустая база без тестовых лидов</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  let leads = [];
+  let toastTimer;
+  const fields = ['name','niche','country','city','telegram_username','website','ad_status','first_seen_at','ad_evidence_url','contact_status','priority'];
+  function toast(message) {
+    const el = $('toast'); el.textContent = message; el.style.display = 'block';
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => el.style.display = 'none', 3500);
+  }
+  function setConnection(ok, text) {
+    $('connectionStatus').textContent = text;
+    $('statusDot').style.background = ok ? 'var(--green)' : 'var(--red)';
+  }
+  function safe(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+  function linkOrText(value, kind) {
+    if (!value) return '—';
+    const s = String(value);
+    if (kind === 'telegram') {
+      const handle = s.replace(/^@/, '');
+      if (/^[A-Za-z0-9_]{5,32}$/.test(handle)) return `<a style="color:var(--gold)" href="https://t.me/${encodeURIComponent(handle)}" target="_blank" rel="noopener noreferrer">@${safe(handle)}</a>`;
+    }
+    if (kind === 'website') {
+      try { const u = new URL(s.startsWith('http') ? s : 'https://' + s); if (u.protocol === 'https:' || u.protocol === 'http:') return `<a style="color:var(--gold)" href="${safe(u.href)}" target="_blank" rel="noopener noreferrer">${safe(u.hostname)}</a>`; } catch {}
+    }
+    return safe(s);
+  }
+  function matches(l) {
+    const q = $('searchInput').value.trim().toLowerCase();
+    const niche = $('nicheFilter').value, country = $('countryFilter').value, status = $('statusFilter').value;
+    const hay = [l.name,l.niche,l.country,l.city,l.telegram_username,l.website,l.ad_status].join(' ').toLowerCase();
+    return (!q || hay.includes(q)) && (!niche || String(l.niche||'').toLowerCase().includes(niche.toLowerCase())) &&
+      (!country || String(l.country||'') === country) && (!status || String(l.ad_status||'') === status);
+  }
+  function render() {
+    const rows = leads.filter(matches).sort((a,b) => String(b.first_seen_at||'').localeCompare(String(a.first_seen_at||'')));
+    $('totalCount').textContent = leads.length;
+    $('telegramCount').textContent = leads.filter(l => l.telegram_username).length;
+    const since = Date.now() - 86400000;
+    $('newCount').textContent = leads.filter(l => { const d = Date.parse(l.first_seen_at||''); return Number.isFinite(d) && d >= since; }).length;
+    $('resultSummary').textContent = `${rows.length} из ${leads.length} записей`;
+    const body = $('leadsBody');
+    if (!rows.length) {
+      body.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="symbol">⌕</div><strong>${leads.length ? 'Ничего не найдено' : 'Пока нет лидов'}</strong><p>${leads.length ? 'Измени запрос или сбрось фильтры.' : 'Здесь появятся реальные записи после подключения источников и запуска сканирования.'}</p></div></td></tr>`;
+      return;
+    }
+    body.innerHTML = rows.map(l => `<tr><td>${safe(l.name||'Без имени')}</td><td>${safe(l.niche||'—')}</td><td>${safe([l.city,l.country].filter(Boolean).join(', ')||'—')}</td><td>${linkOrText(l.telegram_username,'telegram')}</td><td>${linkOrText(l.website,'website')}</td><td>${safe(l.ad_status||'Требует проверки')}${l.ad_evidence_url ? `<br><a style="color:var(--muted)" href="${safe(l.ad_evidence_url)}" target="_blank" rel="noopener noreferrer">Источник ↗</a>` : ''}</td><td>${safe(l.first_seen_at ? new Date(l.first_seen_at).toLocaleDateString('ru-RU') : '—')}</td></tr>`).join('');
+  }
+  function endpoint() { return $('apiUrl').value.trim().replace(/\/+$/, ''); }
+  function headers() {
+    const h = {'Accept':'application/json'};
+    const key = $('apiKey').value.trim();
+    if (key) h['Authorization'] = 'Bearer ' + key;
+    return h;
+  }
+  async function loadLeads() {
+    const url = endpoint();
+    if (!url) { toast('Сначала укажи URL серверного API. База не изменена.'); return; }
+    $('refreshBtn').disabled = true; $('refreshBtn').textContent = 'Загрузка…';
+    try {
+      const res = await fetch(url, {headers:headers(), method:'GET'});
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const list = Array.isArray(data) ? data : data.items;
+      if (!Array.isArray(list)) throw new Error('API должен вернуть массив записей или объект с items');
+      leads = list.filter(x => x && typeof x === 'object');
+      render(); setConnection(true, 'API подключён'); toast(`Получено записей: ${leads.length}`);
+    } catch (e) {
+      setConnection(false, 'Ошибка API');
+      toast('Не удалось загрузить базу: ' + (e.message || 'ошибка сети'));
+    } finally { $('refreshBtn').disabled = false; $('refreshBtn').textContent = '↻ Обновить базу'; }
+  }
+  function exportCsv() {
+    const rows = leads.filter(matches);
+    if (!rows.length) { toast('Нет записей для экспорта. Пустой CSV не создан.'); return; }
+    const csvCell = v => '"' + String(v ?? '').replace(/"/g,'""') + '"';
+    const csv = '\uFEFF' + [fields.join(';'), ...rows.map(l => fields.map(k => csvCell(l[k])).join(';'))].join('\r\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'leadhunter-leads.csv'; a.click(); URL.revokeObjectURL(a.href);
+  }
+  function saveConfig() {
+    // Only endpoint is persisted. Auth tokens are deliberately not stored in browser storage.
+    try { localStorage.setItem('leadhunter_api_url', $('apiUrl').value.trim()); toast('URL API сохранён на этом устройстве. Токен не сохранялся.'); }
+    catch { toast('Не удалось сохранить настройки браузера.'); }
+  }
+  $('searchInput').addEventListener('input', render);
+  ['nicheFilter','countryFilter','statusFilter'].forEach(id => $(id).addEventListener('change', render));
+  $('refreshBtn').addEventListener('click', loadLeads);
+  $('testApiBtn').addEventListener('click', loadLeads);
+  $('exportBtn').addEventListener('click', exportCsv);
+  $('saveConfigBtn').addEventListener('click', saveConfig);
+  $('resetBtn').addEventListener('click', () => { $('searchInput').value=''; $('nicheFilter').value=''; $('countryFilter').value=''; $('statusFilter').value=''; render(); toast('Фильтры сброшены.'); });
+  try { $('apiUrl').value = localStorage.getItem('leadhunter_api_url') || ''; } catch {}
+  render();
+})();
+</script>
+</body>
+</html>
